@@ -9,7 +9,7 @@ FROM circleci/elixir:1.2.6
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/6b8d86d6ad59e0d1e7a94cec2e909cad137a028f/8/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/994f8286cb0efc92578902d5fd11182f63a59869/8/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -31,7 +31,7 @@ RUN set -ex \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
   done
 
-ENV NODE_VERSION 8.9.3
+ENV NODE_VERSION 8.9.4
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \

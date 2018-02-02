@@ -117,7 +117,10 @@ ARG android_home=/opt/android/sdk
 # SHA-256 444e22ce8ca0f67353bda4b85175ed3731cae3ffa695ca18119cbacef1c1bea0
 
 RUN sudo apt-get update && \
-    sudo apt-get install --yes xvfb gcc-multilib lib32z1 lib32stdc++6 build-essential libcurl4-openssl-dev
+    sudo apt-get install --yes \
+        xvfb gcc-multilib lib32z1 lib32stdc++6 build-essential \
+        libcurl4-openssl-dev libglu1-mesa libxi-dev libxmu-dev \
+        libglu1-mesa-dev
 
 # Install Ruby
 RUN cd /tmp && wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz && \
@@ -162,6 +165,9 @@ RUN sdkmanager \
   "build-tools;25.0.3" \
   "build-tools;26.0.1" \
   "build-tools;26.0.2" \
-  "build-tools;27.0.0"
+  "build-tools;27.0.0" \
+  "build-tools;27.0.1" \
+  "build-tools;27.0.2" \
+  "build-tools;27.0.3"
 
 RUN sdkmanager "platforms;android-23"

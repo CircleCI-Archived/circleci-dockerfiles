@@ -117,7 +117,10 @@ ARG android_home=/opt/android/sdk
 # SHA-256 444e22ce8ca0f67353bda4b85175ed3731cae3ffa695ca18119cbacef1c1bea0
 
 RUN sudo apt-get update && \
-    sudo apt-get install --yes xvfb gcc-multilib lib32z1 lib32stdc++6 build-essential libcurl4-openssl-dev
+    sudo apt-get install --yes \
+        xvfb gcc-multilib lib32z1 lib32stdc++6 build-essential \
+        libcurl4-openssl-dev libglu1-mesa libxi-dev libxmu-dev \
+        libglu1-mesa-dev
 
 # Install Ruby
 RUN cd /tmp && wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz && \
@@ -162,7 +165,10 @@ RUN sdkmanager \
   "build-tools;25.0.3" \
   "build-tools;26.0.1" \
   "build-tools;26.0.2" \
-  "build-tools;27.0.0"
+  "build-tools;27.0.0" \
+  "build-tools;27.0.1" \
+  "build-tools;27.0.2" \
+  "build-tools;27.0.3"
 
 RUN sdkmanager "platforms;android-27"
 #
@@ -172,7 +178,7 @@ RUN sdkmanager "platforms;android-27"
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/6b8d86d6ad59e0d1e7a94cec2e909cad137a028f/8/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/994f8286cb0efc92578902d5fd11182f63a59869/8/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -194,7 +200,7 @@ RUN set -ex \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
   done
 
-ENV NODE_VERSION 8.9.3
+ENV NODE_VERSION 8.9.4
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
