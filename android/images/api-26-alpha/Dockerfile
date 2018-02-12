@@ -127,10 +127,10 @@ RUN cd /tmp && wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/r
     tar -xzvf ruby-install-0.6.1.tar.gz && \
     cd ruby-install-0.6.1 && \
     sudo make install && \
-    ruby-install --cleanup ruby 2.4.1 && \
+    ruby-install --cleanup ruby 2.4.3 && \
     rm -r /tmp/ruby-install-*
 
-ENV PATH ${HOME}/.rubies/ruby-2.4.1/bin:${PATH}
+ENV PATH ${HOME}/.rubies/ruby-2.4.3/bin:${PATH}
 RUN echo 'gem: --env-shebang --no-rdoc --no-ri' >> ~/.gemrc && gem install bundler
 
 # Download and install Android SDK

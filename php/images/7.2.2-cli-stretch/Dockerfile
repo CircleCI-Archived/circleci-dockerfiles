@@ -79,7 +79,7 @@ RUN groupadd --gid 3434 circleci \
 # Install composer
 RUN php -r "copy('https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer', 'composer-setup.php');" &&     php composer-setup.php &&     php -r "unlink('composer-setup.php');" &&     mv composer.phar /usr/local/bin/composer
 
-RUN (pecl install xdebug && docker-php-ext-enable xdebug) || exit 0
+RUN (pecl install xdebug || pecl install xdebug-2.5.5) && docker-php-ext-enable xdebug
 # END IMAGE CUSTOMIZATIONS
 
 USER circleci
