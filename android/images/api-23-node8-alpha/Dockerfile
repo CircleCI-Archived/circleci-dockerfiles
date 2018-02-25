@@ -178,7 +178,7 @@ RUN sdkmanager "platforms;android-23"
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/25f26146ac5b9f74add731b0b078e34411ae5831/8/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/8498ff5302c19506c9edc3ce152f2bd4aa6b26b3/8/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -195,10 +195,9 @@ RUN set -ex \
     56730D5401028683275BD23C23EFEFE93C4CFFFE \
     77984A986EBC2AA786BC0F66B01FBB92821C587A \
   ; do \
-    gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" || \
-    gpg --keyserver hkp://keyserver.pgp.com:80 --recv-keys "$key" || \
+    gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" || \
     gpg --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
-    gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" ; \
+    gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
   done
 
 ENV NODE_VERSION 8.9.4
@@ -227,10 +226,9 @@ RUN set -ex \
   && for key in \
     6A010C5166006599AA17F08146C2130DFD2497F5 \
   ; do \
-    gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" || \
-    gpg --keyserver hkp://keyserver.pgp.com:80 --recv-keys "$key" || \
+    gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" || \
     gpg --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
-    gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" ; \
+    gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
   done \
   && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
   && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
