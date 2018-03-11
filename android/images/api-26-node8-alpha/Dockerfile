@@ -178,7 +178,7 @@ RUN sdkmanager "platforms;android-26"
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/8498ff5302c19506c9edc3ce152f2bd4aa6b26b3/8/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/4c7763dc2cb067becf12ea4bd55e88b881ccba2b/8/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -200,7 +200,7 @@ RUN set -ex \
     gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
   done
 
-ENV NODE_VERSION 8.9.4
+ENV NODE_VERSION 8.10.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
@@ -220,7 +220,7 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
-ENV YARN_VERSION 1.3.2
+ENV YARN_VERSION 1.5.1
 
 RUN set -ex \
   && for key in \
