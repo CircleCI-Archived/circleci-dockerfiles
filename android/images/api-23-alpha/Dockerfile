@@ -8,6 +8,7 @@ LABEL maintainer="marc@circleci.com"
 # Initial Command run as `root`.
 
 ADD https://raw.githubusercontent.com/circleci/circleci-images/master/android/bin/circle-android /bin/circle-android
+RUN chmod +rx /bin/circle-android
 
 # Skip the first line of the Dockerfile template (FROM ${BASE})
 

@@ -8,6 +8,7 @@ LABEL maintainer="marc@circleci.com"
 # Initial Command run as `root`.
 
 ADD https://raw.githubusercontent.com/circleci/circleci-images/master/android/bin/circle-android /bin/circle-android
+RUN chmod +rx /bin/circle-android
 
 # Skip the first line of the Dockerfile template (FROM ${BASE})
 
@@ -181,7 +182,7 @@ RUN sdkmanager "platforms;android-27"
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/4c7763dc2cb067becf12ea4bd55e88b881ccba2b/8/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/ae26d217bca933e72ac5f8de946681c1b5f8b37e/8/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -237,7 +238,8 @@ RUN set -ex \
   && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
   && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
   && mkdir -p /opt/yarn \
-  && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/yarn --strip-components=1 \
+  && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/ \
+  && ln -s /opt/yarn-v$YARN_VERSION /opt/yarn \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
