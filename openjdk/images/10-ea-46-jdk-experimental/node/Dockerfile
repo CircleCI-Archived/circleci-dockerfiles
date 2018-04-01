@@ -9,7 +9,7 @@ FROM circleci/openjdk:10-ea-46-jdk-experimental
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/ab12e9bab43bde5efd2e9fa278d941e4062c6f4a/8/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/2b11af24b4bf75cc051ce2fc21e796e7e9425fd0/8/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -31,7 +31,7 @@ RUN set -ex \
     gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
   done
 
-ENV NODE_VERSION 8.10.0
+ENV NODE_VERSION 8.11.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
