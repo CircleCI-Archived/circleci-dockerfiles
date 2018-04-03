@@ -9,7 +9,7 @@ FROM circleci/clojure:lein-2.8.1
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/2b11af24b4bf75cc051ce2fc21e796e7e9425fd0/8/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/b3ca6573b5c179148b446107386ae96ac6204ad3/8/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -31,7 +31,7 @@ RUN set -ex \
     gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
   done
 
-ENV NODE_VERSION 8.11.0
+ENV NODE_VERSION 8.11.1
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
