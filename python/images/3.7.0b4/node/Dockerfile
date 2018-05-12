@@ -9,7 +9,7 @@ FROM circleci/python:3.7.0b4
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/b3ca6573b5c179148b446107386ae96ac6204ad3/8/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/773be66016fd1ff4a860529a80af61277f75c7e2/8/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
