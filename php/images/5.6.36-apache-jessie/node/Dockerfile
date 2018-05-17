@@ -9,7 +9,7 @@ FROM circleci/php:5.6.36-apache-jessie
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/773be66016fd1ff4a860529a80af61277f75c7e2/8/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/9d34db0c5d314b704b7dc76481dca15b85eef7c2/8/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -31,7 +31,7 @@ RUN set -ex \
     gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
   done
 
-ENV NODE_VERSION 8.11.1
+ENV NODE_VERSION 8.11.2
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
@@ -51,7 +51,7 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
-ENV YARN_VERSION 1.5.1
+ENV YARN_VERSION 1.6.0
 
 RUN set -ex \
   && for key in \
