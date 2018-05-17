@@ -69,6 +69,9 @@ RUN export CHROMEDRIVER_RELEASE=$(curl --location --fail --retry 3 http://chrome
       && sudo mv chromedriver /usr/local/bin/chromedriver \
       && sudo chmod +x /usr/local/bin/chromedriver \
       && chromedriver --version
+      
+# install libgconf-2-4 manually since chrome no longer pulls it in automatically
+RUN sudo apt-get install -y libgconf-2-4
 
 # start xvfb automatically to avoid needing to express in circle.yml
 ENV DISPLAY :99

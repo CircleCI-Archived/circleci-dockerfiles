@@ -10,11 +10,14 @@ FROM circleci/buildpack-deps:trusty-scm
 # docker installations command expect to run as root
 USER root
 
-RUN apt-get update \
-    && apt-get install -y \
-             iptables \
-	     btrfs-tools \
-	     xz-utils
+#  The package `btrfs-progs` has replaced `btrfs-tools` in newer distros. 
+#  We'll try both for now but after older distros like Ubuntu 16.04 (Xenial), 
+#  and Debian Stretch drop off the tag lists from upstream, we should just 
+#  install `btrfs-progs`.
+RUN apt-get update && apt-get install -y \
+		iptables \
+		xz-utils && \
+	if ! apt-get install -y btrfs-tools; then  apt-get install -y btrfs-progs; fi
 
 # set up subuid/subgid so that "--userns-remap=default" works out-of-the-box
 RUN set -x \
