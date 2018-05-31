@@ -9,7 +9,7 @@ FROM circleci/php:7.2.6-cli-stretch
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/947280600648b70e067d35415d6812fd03127def/8/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/7fea7b033c5a292dd74199d2ba0fbb161f75aa0d/8/jessie/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
