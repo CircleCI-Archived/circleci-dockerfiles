@@ -4,7 +4,7 @@
 FROM circleci/postgres:9.4.18
 
 ENV PGUSER $POSTGRES_USER
-ENV POSTGIS_VERSION 2.4.2
+ENV POSTGIS_VERSION 2.4.4
 
 RUN if which apt-get > /dev/null ; then \
       apt-get update \
@@ -38,6 +38,7 @@ RUN if which apt-get > /dev/null ; then \
       \
       && apk add --no-cache --virtual .build-deps-testing \
           --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+          --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
           gdal-dev \
           geos-dev \
           proj4-dev \
