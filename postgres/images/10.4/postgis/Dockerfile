@@ -66,4 +66,4 @@ RUN if which apt-get > /dev/null ; then \
 ADD https://raw.githubusercontent.com/appropriate/docker-postgis/master/initdb-postgis.sh /docker-entrypoint-initdb.d/postgis.sh 
 ADD https://raw.githubusercontent.com/appropriate/docker-postgis/master/update-postgis.sh /usr/local/bin/update-postgis.sh
 
-RUN chmod +rx /docker-entrypoint-initdb.d/postgis.sh /usr/local/bin/update-postgis.sh
+RUN chmod +r /docker-entrypoint-initdb.d/postgis.sh && chmod +rx /usr/local/bin/update-postgis.sh
