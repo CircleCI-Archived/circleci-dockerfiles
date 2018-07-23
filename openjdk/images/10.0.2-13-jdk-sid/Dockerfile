@@ -101,6 +101,9 @@ RUN curl --silent --show-error --location --fail --retry 3 --output /tmp/sbt.tgz
 # Install openjfx
 RUN apt-get install -y --no-install-recommends openjfx
 
+# Add build-essential
+RUN apt-get install -y build-essential
+
 # Update PATH for Java tools
 ENV PATH="/opt/sbt/bin:/opt/apache-maven/bin:/opt/apache-ant/bin:/opt/gradle/bin:$PATH"
 
