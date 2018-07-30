@@ -118,9 +118,9 @@ RUN sudo apt-get update && sudo apt-get install -y google-cloud-sdk && \
     gcloud config set component_manager/disable_update_check true
 
 ARG sdk_version=sdk-tools-linux-3859397.zip
-ARG ndk_version=android-ndk-r17b-linux-x86_64.zip
+ARG ndk_version=android-ndk-r17b
 ARG android_home=/opt/android/sdk
-ARG android_ndk_home=/opt/android/ndk
+ARG android_ndk_home=/opt/android/${ndk_version}
 
 # SHA-256 444e22ce8ca0f67353bda4b85175ed3731cae3ffa695ca18119cbacef1c1bea0
 
@@ -149,11 +149,10 @@ RUN sudo mkdir -p ${android_home} && \
     rm /tmp/${sdk_version}
 
 # Download and install Android NDK
-RUN sudo mkdir -p ${android_ndk_home} && \
-    sudo chown -R circleci:circleci ${android_ndk_home} && \
-    curl --silent --show-error --location --fail --retry 3 --output  /tmp/${ndk_version} https://dl.google.com/android/repository/${ndk_version} && \
-    unzip -q /tmp/${ndk_version} -d ${android_ndk_home} && \
-    rm /tmp/${ndk_version}
+RUN curl --silent --show-error --location --fail --retry 3 --output /tmp/${ndk_version}.zip https://dl.google.com/android/repository/${ndk_version}-linux-x86_64.zip && \
+    sudo unzip -q /tmp/${ndk_version}.zip -d /opt/android && \
+    rm /tmp/${ndk_version}.zip && \
+    sudo chown -R circleci:circleci ${android_ndk_home}
 
 # Set environmental variables
 ENV ANDROID_HOME ${android_home}
