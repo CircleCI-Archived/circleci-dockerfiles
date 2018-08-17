@@ -194,7 +194,7 @@ RUN sdkmanager "platforms;android-24"
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/e3ec2111af089e31321e76641697e154b3b6a6c3/8/jessie/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/72dd945d29dee5afa73956ebc971bf3a472442f7/8/jessie/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -217,7 +217,7 @@ RUN set -ex \
     gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
   done
 
-ENV NODE_VERSION 8.11.3
+ENV NODE_VERSION 8.11.4
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
