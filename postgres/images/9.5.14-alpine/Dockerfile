@@ -4,8 +4,7 @@
 
 FROM postgres:9.5.14-alpine
 
-ENV POSTGRES_USER=root \
-    POSTGRES_DB=circle_test
+ENV POSTGRES_DB=circle_test
 
 # This is performance optimization tweak to make DB faster
 RUN if [ -e /usr/local/share/postgresql/postgresql.conf.sample ]; then \
