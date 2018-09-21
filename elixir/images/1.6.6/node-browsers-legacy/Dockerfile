@@ -22,6 +22,8 @@ RUN if grep -q Debian /etc/os-release && grep -q jessie /etc/os-release; then \
     sudo apt-get update; sudo apt-get install -y openjdk-8-jre openjdk-8-jre-headless openjdk-8-jdk openjdk-8-jdk-headless \
   ; fi
 
+ENV OPENSSL_CONF /
+
 ## install phantomjs
 #
 RUN PHANTOMJS_URL="https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/phantomjs-latest.tar.bz2" \
