@@ -185,6 +185,9 @@ RUN sdkmanager "platforms;android-23"
 ###
 
 
+# Verify the circleci user exists before proceeding
+RUN whoami
+
 # node installations command expect to run as root
 USER root
 ## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/0ceefee0745a078709c60d92e4229f5eb6a3df42/8/stretch/Dockerfile
