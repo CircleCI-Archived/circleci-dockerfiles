@@ -13,25 +13,13 @@ RUN whoami
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/0ceefee0745a078709c60d92e4229f5eb6a3df42/8/stretch/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/ed3e8825b01649d43188e1f606243396a0b995de/10/stretch/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
 
-ENV NODE_VERSION 8.13.0
-
-RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
-  && case "${dpkgArch##*-}" in \
-    amd64) ARCH='x64';; \
-    ppc64el) ARCH='ppc64le';; \
-    s390x) ARCH='s390x';; \
-    arm64) ARCH='arm64';; \
-    armhf) ARCH='armv7l';; \
-    i386) ARCH='x86';; \
-    *) echo "unsupported architecture"; exit 1 ;; \
-  esac \
-  # gpg keys listed at https://github.com/nodejs/node#release-keys
-  && set -ex \
+# gpg keys listed at https://github.com/nodejs/node#release-keys
+RUN set -ex \
   && for key in \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
     FD3A5288F042B6850C66B31F09FE44734EB7990E \
@@ -46,7 +34,20 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
     gpg --batch --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" || \
     gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
     gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
-  done \
+  done
+
+ENV NODE_VERSION 10.14.0
+
+RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) ARCH='x64';; \
+    ppc64el) ARCH='ppc64le';; \
+    s390x) ARCH='s390x';; \
+    arm64) ARCH='arm64';; \
+    armhf) ARCH='armv7l';; \
+    i386) ARCH='x86';; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+  esac \
   && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
   && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
   && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
@@ -55,7 +56,7 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
-ENV YARN_VERSION 1.12.3
+ENV YARN_VERSION 1.10.1
 
 RUN set -ex \
   && for key in \

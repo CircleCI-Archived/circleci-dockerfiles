@@ -77,6 +77,8 @@ RUN groupadd --gid 3434 circleci \
 
 # BEGIN IMAGE CUSTOMIZATIONS
 
+RUN echo 'Defaults    env_keep += "PHP_INI_DIR"' >> /etc/sudoers.d/env_keep
+
 # Install composer
 RUN php -r "copy('https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer', 'composer-setup.php');" &&     php composer-setup.php &&     php -r "unlink('composer-setup.php');" &&     mv composer.phar /usr/local/bin/composer
 

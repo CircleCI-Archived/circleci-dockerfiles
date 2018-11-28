@@ -17,7 +17,7 @@ RUN mkdir -p opt/dynamodb
 WORKDIR /opt/dynamodb
 
 # Download and unpack dynamodb.
-RUN wget http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz -q -O - | tar -xz
+RUN wget http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz -q -O - | tar -xz || curl -L http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz | tar xz
 
 # The entrypoint is the dynamodb jar.
 ENTRYPOINT ["java", "-Xmx1G", "-jar", "DynamoDBLocal.jar"]
