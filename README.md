@@ -7,7 +7,7 @@ This repository's `master` branch tracks images pushed to the official CircleCI 
 
 Its `staging` branch tracks images pushed to [CircleCI's staging environment](https://hub.docker.com/r/ccistaging); any other branches track images pushed to [CircleCI's test environment](https://hub.docker.com/r/ccitest).
 
-### This repository is automated and is not actively managed or maintained on its own
+## This repository is automated and is not actively managed or maintained on its own
 Information about CircleCI's convenience images is available in the following locations:
 
 - https://circleci.com/docs/2.0/circleci-images
