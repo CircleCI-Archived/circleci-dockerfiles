@@ -5,12 +5,12 @@
 FROM circleci/postgres:9.4.20-alpine
 
 ENV PGUSER $POSTGRES_USER
-ENV POSTGIS_VERSION 2.4.4
+ENV POSTGIS_VERSION 2.5.1
 
 RUN if which apt-get > /dev/null ; then \
       apt-get update \
       && apt-get install -y --no-install-recommends \
-           postgresql-$PG_MAJOR-postgis-2.4 postgresql-$PG_MAJOR-postgis-2.4-scripts postgis \
+           postgresql-$PG_MAJOR-postgis-2.5 postgresql-$PG_MAJOR-postgis-2.5-scripts postgis \
       && rm -rf /var/lib/apt/lists/* \
     ; else \
       apk add --no-cache --virtual .fetch-deps \
