@@ -153,7 +153,7 @@ ENV PATH=${ANDROID_HOME}/emulator:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bi
 
 RUN mkdir ~/.android && echo '### User Sources for Android SDK Manager' > ~/.android/repositories.cfg
 
-RUN yes | sdkmanager --licenses && sdkmanager --update
+RUN yes | sdkmanager --licenses && yes | sdkmanager --update
 
 # Update SDK manager and install system image, platform and build tools
 RUN sdkmanager \
@@ -173,6 +173,8 @@ RUN sdkmanager \
   "build-tools;27.0.2" \
   "build-tools;27.0.3" \
   "build-tools;28.0.0" \
+  "build-tools;28.0.1" \
+  "build-tools;28.0.2" \
   "build-tools;28.0.3"
 
 # API_LEVEL string gets replaced by m4
