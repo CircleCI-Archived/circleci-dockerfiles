@@ -77,8 +77,8 @@ RUN groupadd --gid 3434 circleci \
 
 # BEGIN IMAGE CUSTOMIZATIONS
 
-# Install pipenv
-RUN sudo pip install pipenv
+# Install pipenv and poetry
+RUN sudo pip install pipenv poetry
 # END IMAGE CUSTOMIZATIONS
 
 USER circleci
