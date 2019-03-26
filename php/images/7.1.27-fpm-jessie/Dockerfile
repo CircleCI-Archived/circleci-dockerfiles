@@ -14,10 +14,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Switch to the archive mirror until we can get people to
 # switch to Stretch.
 RUN if grep -q Debian /etc/os-release && grep -q jessie /etc/os-release; then \
-	sudo rm /etc/apt/sources.list \
-    && echo "deb http://archive.debian.org/debian jessie main" | sudo tee -a /etc/apt/sources.list \
-    && echo "deb http://archive.debian.org/debian jessie/updates main" | sudo tee -a /etc/apt/sources.list \
-    && echo "deb http://archive.debian.org/debian jessie-updates main" | sudo tee -a /etc/apt/sources.list \
+	rm /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian jessie main" >> /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian jessie/updates main" >> /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian jessie-updates main" >> /etc/apt/sources.list \
 	; fi
 
 # man directory is missing in some base images
