@@ -10,6 +10,15 @@ RUN echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90circleci \
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Debian Jessie is EOL'd and original repos don't work.
+# Switch to the archive mirror until we can get people to
+# switch to Stretch.
+RUN if grep -q Debian /etc/os-release && grep -q jessie /etc/os-release; then \
+	sudo rm /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian jessie main" | sudo tee -a /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian jessie/updates main" | sudo tee -a /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian jessie-updates main" | sudo tee -a /etc/apt/sources.list
+
 # man directory is missing in some base images
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
 RUN apt-get update \
