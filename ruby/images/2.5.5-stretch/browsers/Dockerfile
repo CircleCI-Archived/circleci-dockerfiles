@@ -9,8 +9,8 @@ FROM circleci/ruby:2.5.5-stretch
 RUN if grep -q Debian /etc/os-release && grep -q jessie /etc/os-release; then \
     echo "deb http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list \
     && echo "deb-src http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list \
-	&& echo "Acquire::Check-Valid-Until false;" | sudo tee -a /etc/apt/apt.conf.d/10-nocheckvalid \
-	&& echo 'Package: *\nPin: origin "archive.debian.org"\nPin-Priority: 500' | sudo tee -a /etc/apt/preferences.d/10-archive-pin \
+    && echo "Acquire::Check-Valid-Until false;" | sudo tee -a /etc/apt/apt.conf.d/10-nocheckvalid \
+    && echo 'Package: *\nPin: origin "archive.debian.org"\nPin-Priority: 500' | sudo tee -a /etc/apt/preferences.d/10-archive-pin \
     && sudo apt-get update; sudo apt-get install -y -t jessie-backports openjdk-8-jre openjdk-8-jre-headless openjdk-8-jdk openjdk-8-jdk-headless \
   ; elif grep -q Ubuntu /etc/os-release && grep -q Trusty /etc/os-release; then \
     echo "deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list \

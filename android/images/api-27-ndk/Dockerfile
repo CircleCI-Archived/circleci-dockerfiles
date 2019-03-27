@@ -23,7 +23,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 # switch to Stretch.
 RUN if grep -q Debian /etc/os-release && grep -q jessie /etc/os-release; then \
 	rm /etc/apt/sources.list \
-    && echo "deb http://deb.debian.org/debian/ jessie main" >> /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian/ jessie main" >> /etc/apt/sources.list \
+    && echo "deb http://security.debian.org/debian-security jessie/updates main" >> /etc/apt/sources.list \
 	; fi
 
 # man directory is missing in some base images
