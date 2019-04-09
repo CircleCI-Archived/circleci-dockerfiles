@@ -4,4 +4,4 @@
 
 FROM mongo:3.6.12
 
-CMD ["mongod", "--nojournal", "--noprealloc", "--smallfiles"]
+CMD ["mongod", "--nojournal", "--smallfiles"]
