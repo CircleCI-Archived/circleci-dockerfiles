@@ -27,6 +27,10 @@ RUN if grep -q Debian /etc/os-release && grep -q jessie /etc/os-release; then \
     && echo "deb http://security.debian.org/debian-security jessie/updates main" >> /etc/apt/sources.list \
 	; fi
 
+# Make sure PATH includes ~/.local/bin
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155
+RUN echo 'PATH="$HOME/.local/bin:$PATH"' >> /etc/profile.d/user-local-path.sh
+
 # man directory is missing in some base images
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
 RUN apt-get update \
