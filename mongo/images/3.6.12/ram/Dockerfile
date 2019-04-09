@@ -9,4 +9,4 @@ FROM circleci/mongo:3.6.12
 # entrypoint file. This comment can be removed once all pre-3.6 mongo images are gone.
 RUN sed -i '/exec "$@"/i mkdir \/dev\/shm\/mongo' /usr/local/bin/docker-entrypoint.sh
 
-CMD ["mongod", "--nojournal", "--noprealloc", "--smallfiles", "--dbpath=/dev/shm/mongo"]
+CMD ["mongod", "--nojournal", "--smallfiles", "--dbpath=/dev/shm/mongo"]
