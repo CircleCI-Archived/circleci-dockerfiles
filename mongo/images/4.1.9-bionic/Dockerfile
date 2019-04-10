@@ -4,4 +4,4 @@
 
 FROM mongo:4.1.9-bionic
 
-CMD ["mongod", "--nojournal", "--smallfiles"]
+CMD ["mongod", "--nojournal"]

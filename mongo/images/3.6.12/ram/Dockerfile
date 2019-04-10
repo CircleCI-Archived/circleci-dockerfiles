@@ -4,9 +4,6 @@
 
 FROM circleci/mongo:3.6.12
 
-# The ENTRYPOINT for mongo is at /usr/local/bin/docker-entrypoint.sh, but pre-3.6 images also
-# include a symlink from /entrypoint.sh to that script. So, it's only necessary to update the real
-# entrypoint file. This comment can be removed once all pre-3.6 mongo images are gone.
-RUN sed -i '/exec "$@"/i mkdir \/dev\/shm\/mongo' /usr/local/bin/docker-entrypoint.sh
+RUN mkdir /dev/shm/mongo
 
-CMD ["mongod", "--nojournal", "--smallfiles", "--dbpath=/dev/shm/mongo"]
+CMD ["mongod", "--nojournal", "--dbpath=/dev/shm/mongo"]
