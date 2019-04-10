@@ -4,4 +4,4 @@
 
 FROM mongo:4.0.8
 
-CMD ["mongod", "--nojournal", "--smallfiles"]
+CMD ["mongod", "--nojournal"]

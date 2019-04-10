@@ -4,4 +4,4 @@
 
 FROM mongo:3.4.20-xenial
 
-CMD ["mongod", "--nojournal", "--smallfiles"]
+CMD ["mongod", "--nojournal"]
