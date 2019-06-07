@@ -38,7 +38,7 @@ RUN apt-get update \
   && apt-get install -y \
     git mercurial xvfb apt \
     locales sudo openssh-client ca-certificates tar gzip parallel \
-    net-tools netcat unzip zip bzip2 gnupg curl wget
+    net-tools netcat unzip zip bzip2 gnupg curl wget make
 
 
 # Set timezone to UTC by default
@@ -188,7 +188,8 @@ RUN sdkmanager \
   "build-tools;28.0.0" \
   "build-tools;28.0.1" \
   "build-tools;28.0.2" \
-  "build-tools;28.0.3"
+  "build-tools;28.0.3" \
+  "build-tools;29.0.0"
 
 # API_LEVEL string gets replaced by m4
 RUN sdkmanager "platforms;android-23"
@@ -265,8 +266,6 @@ RUN set -ex \
   && ln -s /opt/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 
-COPY docker-entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["docker-entrypoint.sh"]
 
 
 # Basic smoke test
