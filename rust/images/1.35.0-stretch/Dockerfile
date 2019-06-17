@@ -30,7 +30,7 @@ RUN apt-get update \
   && apt-get install -y \
     git mercurial xvfb apt \
     locales sudo openssh-client ca-certificates tar gzip parallel \
-    net-tools netcat unzip zip bzip2 gnupg curl wget
+    net-tools netcat unzip zip bzip2 gnupg curl wget make
 
 
 # Set timezone to UTC by default
@@ -90,6 +90,8 @@ RUN groupadd --gid 3434 circleci \
 
 # BEGIN IMAGE CUSTOMIZATIONS
 
+# install musl libc for static binaries
+RUN apt-get install -y musl musl-dev musl-tools
 # END IMAGE CUSTOMIZATIONS
 
 USER circleci
