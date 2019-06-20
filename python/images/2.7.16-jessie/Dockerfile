@@ -90,8 +90,11 @@ RUN groupadd --gid 3434 circleci \
 
 # BEGIN IMAGE CUSTOMIZATIONS
 
-# Install pipenv and poetry
-RUN sudo pip install pipenv poetry
+# Install pipenv
+RUN sudo pip install pipenv
+
+#install poetry
+RUN sudo curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 # END IMAGE CUSTOMIZATIONS
 
 USER circleci
