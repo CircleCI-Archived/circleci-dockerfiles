@@ -99,7 +99,7 @@ RUN php -r "copy('https://raw.githubusercontent.com/composer/getcomposer.org/mas
 RUN (pecl install xdebug || pecl install xdebug-2.5.5 || pecl install xdebug-2.7.1) && docker-php-ext-enable xdebug
 
 # Install common extensions
-RUN apt install -y libicu-dev zlib1g-dev libzip-dev
+RUN apt install -y libicu-dev zlib1g-dev libzip-dev &&     rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-configure intl && docker-php-ext-install intl
 RUN docker-php-ext-install zip
 # END IMAGE CUSTOMIZATIONS

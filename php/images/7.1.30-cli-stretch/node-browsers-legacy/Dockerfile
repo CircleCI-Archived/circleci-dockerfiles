@@ -7,22 +7,17 @@
 #
 FROM circleci/php:7.1.30-cli-stretch-node
 
-# install java 8
 #
-RUN if grep -q Debian /etc/os-release && grep -q jessie /etc/os-release; then \
-    echo "deb http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list \
-    && echo "deb-src http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list \
-    && echo "Acquire::Check-Valid-Until false;" | sudo tee -a /etc/apt/apt.conf.d/10-nocheckvalid \
-    && echo 'Package: *\nPin: origin "archive.debian.org"\nPin-Priority: 500' | sudo tee -a /etc/apt/preferences.d/10-archive-pin \
-    && sudo apt-get update; sudo apt-get install -y -t jessie-backports openjdk-8-jre openjdk-8-jre-headless openjdk-8-jdk openjdk-8-jdk-headless \
-  ; elif grep -q Ubuntu /etc/os-release && grep -q Trusty /etc/os-release; then \
-    echo "deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list \
-    && echo "deb-src http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list \
-    && sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key DA1A4A13543B466853BAF164EB9B1D8886F44E2A \
-    && sudo apt-get update; sudo apt-get install -y openjdk-8-jre openjdk-8-jre-headless openjdk-8-jdk openjdk-8-jdk-headless \
-  ; else \
-    sudo apt-get update; sudo apt-get install -y openjdk-8-jre openjdk-8-jre-headless openjdk-8-jdk openjdk-8-jdk-headless \
-  ; fi
+# Install Java 11 LTS / OpenJDK 11
+#
+RUN if grep -q Debian /etc/os-release && grep -q stretch /etc/os-release; then \
+		echo 'deb http://deb.debian.org/debian stretch-backports main' | sudo tee -a /etc/apt/sources.list.d/stretch-backports.list; \
+	elif grep -q Ubuntu /etc/os-release && grep -q xenial /etc/os-release; then \
+		sudo apt-get update && sudo apt-get install -y software-properties-common && \
+		sudo add-apt-repository -y ppa:openjdk-r/ppa; \
+	fi && \
+	sudo apt-get update && sudo apt-get install -y openjdk-11-jre openjdk-11-jre-headless openjdk-11-jdk openjdk-11-jdk-headless && \
+	sudo apt-get install -y bzip2 libgconf-2-4 # for extracting firefox and running chrome, respectively
 
 ENV OPENSSL_CONF /
 

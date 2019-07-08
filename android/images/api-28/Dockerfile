@@ -115,18 +115,21 @@ RUN sudo apt-get update -qqy && sudo apt-get install -qqy \
         python-dev \
         python-setuptools \
         apt-transport-https \
-        lsb-release
+        lsb-release && \
+    sudo rm -rf /var/lib/apt/lists/*
 
-RUN sudo apt-get install gcc-multilib && \
+RUN sudo apt-get update && sudo apt-get install gcc-multilib && \
+    sudo rm -rf /var/lib/apt/lists/* && \
     sudo easy_install -U pip && \
     sudo pip uninstall crcmod && \
-    sudo pip install -U crcmod
+    sudo pip install --no-cache -U crcmod
 
 RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
     echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 RUN sudo apt-get update && sudo apt-get install -y google-cloud-sdk && \
+    sudo rm -rf /var/lib/apt/lists/* && \
     gcloud config set core/disable_usage_reporting true && \
     gcloud config set component_manager/disable_update_check true
 
@@ -139,15 +142,18 @@ RUN sudo apt-get update && \
     sudo apt-get install --yes \
         xvfb lib32z1 lib32stdc++6 build-essential \
         libcurl4-openssl-dev libglu1-mesa libxi-dev libxmu-dev \
-        libglu1-mesa-dev
+        libglu1-mesa-dev && \
+    sudo rm -rf /var/lib/apt/lists/*
 
 # Install Ruby
-RUN cd /tmp && wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz && \
+RUN sudo apt-get update && \
+    cd /tmp && wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz && \
     tar -xzvf ruby-install-0.6.1.tar.gz && \
     cd ruby-install-0.6.1 && \
     sudo make install && \
     ruby-install --cleanup ruby 2.6.1 && \
-    rm -r /tmp/ruby-install-*
+    rm -r /tmp/ruby-install-* && \
+    sudo rm -rf /var/lib/apt/lists/*
 
 ENV PATH ${HOME}/.rubies/ruby-2.6.1/bin:${PATH}
 RUN echo 'gem: --env-shebang --no-rdoc --no-ri' >> ~/.gemrc && gem install bundler

@@ -111,11 +111,8 @@ RUN curl --silent --show-error --location --fail --retry 3 --output /tmp/gradle.
 # Install sbt from https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/sbt-latest.tgz
 RUN curl --silent --show-error --location --fail --retry 3 --output /tmp/sbt.tgz https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/sbt-latest.tgz   && tar -xzf /tmp/sbt.tgz -C /opt/   && rm /tmp/sbt.tgz   && /opt/sbt/bin/sbt sbtVersion
 
-# Install openjfx
-RUN apt-get install -y --no-install-recommends openjfx
-
-# Add build-essential
-RUN apt-get install -y build-essential
+# Install openjfx and build-essential
+RUN apt-get update     && apt-get install -y --no-install-recommends openjfx     && apt-get install -y build-essential     && rm -rf /var/lib/apt/lists/*
 
 # Update PATH for Java tools
 ENV PATH="/opt/sbt/bin:/opt/apache-maven/bin:/opt/apache-ant/bin:/opt/gradle/bin:$PATH"
