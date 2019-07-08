@@ -42,7 +42,7 @@ RUN if which apt-get > /dev/null ; then \
           --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
           gdal-dev \
           geos-dev \
-          proj4-dev \
+          proj-dev \
       && cd /usr/src/postgis \
       && ./autogen.sh \
   # configure options taken from:
@@ -57,7 +57,7 @@ RUN if which apt-get > /dev/null ; then \
           --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
           geos \
           gdal \
-          proj4 \
+          proj \
           wget \
       && cd / \
       && rm -rf /usr/src/postgis \
