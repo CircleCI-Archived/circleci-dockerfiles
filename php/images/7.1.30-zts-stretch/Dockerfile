@@ -93,13 +93,17 @@ RUN groupadd --gid 3434 circleci \
 RUN echo 'Defaults    env_keep += "PHP_INI_DIR"' >> /etc/sudoers.d/env_keep
 
 # Install composer
-RUN php -r "copy('https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer', 'composer-setup.php');" &&     php composer-setup.php &&     php -r "unlink('composer-setup.php');" &&     mv composer.phar /usr/local/bin/composer
+RUN php -r "copy('https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer', 'composer-setup.php');" && \
+    php composer-setup.php && \
+    php -r "unlink('composer-setup.php');" && \
+    mv composer.phar /usr/local/bin/composer
 
 # Install XDebug
 RUN (pecl install xdebug || pecl install xdebug-2.5.5 || pecl install xdebug-2.7.1) && docker-php-ext-enable xdebug
 
 # Install common extensions
-RUN apt install -y libicu-dev zlib1g-dev libzip-dev &&     rm -rf /var/lib/apt/lists/*
+RUN apt install -y libicu-dev zlib1g-dev libzip-dev && \
+    rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-configure intl && docker-php-ext-install intl
 RUN docker-php-ext-install zip
 # END IMAGE CUSTOMIZATIONS
