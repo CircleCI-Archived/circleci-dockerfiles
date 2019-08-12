@@ -21,6 +21,7 @@ RUN if grep -q Debian /etc/os-release && grep -q jessie /etc/os-release; then \
 
 # Make sure PATH includes ~/.local/bin
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155
+# This only works for root. The circleci user is done near the end of this Dockerfile
 RUN echo 'PATH="$HOME/.local/bin:$PATH"' >> /etc/profile.d/user-local-path.sh
 
 # man directory is missing in some base images
@@ -97,5 +98,8 @@ RUN curl -sSL https://github.com/gotestyourself/gotestsum/releases/download/v0.3
 # END IMAGE CUSTOMIZATIONS
 
 USER circleci
+
+# Physically create these directories so that ~/.profile will add them to PATH
+RUN mkdir -p $HOME/{,.local/}bin
 
 CMD ["/bin/sh"]

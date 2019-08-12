@@ -29,6 +29,7 @@ RUN if grep -q Debian /etc/os-release && grep -q jessie /etc/os-release; then \
 
 # Make sure PATH includes ~/.local/bin
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155
+# This only works for root. The circleci user is done near the end of this Dockerfile
 RUN echo 'PATH="$HOME/.local/bin:$PATH"' >> /etc/profile.d/user-local-path.sh
 
 # man directory is missing in some base images
@@ -101,6 +102,9 @@ RUN groupadd --gid 3434 circleci \
 
 USER circleci
 
+# Physically create these directories so that ~/.profile will add them to PATH
+RUN mkdir -p $HOME/{,.local/}bin
+
 CMD ["/bin/sh"]
 
 
@@ -113,6 +117,7 @@ ENV HOME /home/circleci
 
 RUN sudo apt-get update -qqy && sudo apt-get install -qqy \
         python-dev \
+        python-pip \
         python-setuptools \
         apt-transport-https \
         lsb-release && \
@@ -120,7 +125,6 @@ RUN sudo apt-get update -qqy && sudo apt-get install -qqy \
 
 RUN sudo apt-get update && sudo apt-get install gcc-multilib && \
     sudo rm -rf /var/lib/apt/lists/* && \
-    sudo easy_install -U pip && \
     sudo pip uninstall crcmod && \
     sudo pip install --no-cache -U crcmod
 
