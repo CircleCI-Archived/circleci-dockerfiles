@@ -113,6 +113,7 @@ ENV HOME /home/circleci
 
 RUN sudo apt-get update -qqy && sudo apt-get install -qqy \
         python-dev \
+        python-pip \
         python-setuptools \
         apt-transport-https \
         lsb-release && \
@@ -120,7 +121,6 @@ RUN sudo apt-get update -qqy && sudo apt-get install -qqy \
 
 RUN sudo apt-get update && sudo apt-get install gcc-multilib && \
     sudo rm -rf /var/lib/apt/lists/* && \
-    sudo easy_install -U pip && \
     sudo pip uninstall crcmod && \
     sudo pip install --no-cache -U crcmod
 
@@ -195,7 +195,8 @@ RUN sdkmanager \
   "build-tools;28.0.1" \
   "build-tools;28.0.2" \
   "build-tools;28.0.3" \
-  "build-tools;29.0.0"
+  "build-tools;29.0.0" \
+  "build-tools;29.0.1"
 
 # API_LEVEL string gets replaced by m4
 RUN sdkmanager "platforms;android-29"
