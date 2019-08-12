@@ -91,7 +91,7 @@ RUN groupadd --gid 3434 circleci \
 # BEGIN IMAGE CUSTOMIZATIONS
 
 RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | INSTALL_DIRECTORY=/usr/local/bin sh
-RUN curl -sSL https://github.com/gotestyourself/gotestsum/releases/download/v0.3.4/gotestsum_0.3.4_linux_amd64.tar.gz | \
+RUN curl -sSL https://github.com/gotestyourself/gotestsum/releases/download/v0.3.5/gotestsum_0.3.5_linux_amd64.tar.gz | \
   tar -xz -C /usr/local/bin gotestsum
 
 # END IMAGE CUSTOMIZATIONS
