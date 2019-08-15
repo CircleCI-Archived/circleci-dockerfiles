@@ -99,6 +99,9 @@ ENV JVM_OPTS=-Xmx3200m
 USER circleci
 
 # Physically create these directories so that ~/.profile will add them to PATH
+# Switching user can confuse Docker's idea of $HOME, so we set it explicitly
+ENV HOME /home/circleci
 RUN mkdir -p $HOME/bin && mkdir -p $HOME/.local/bin
+ENV PATH ${HOME}/.local/bin:${HOME}/bin:${PATH}
 
 CMD ["/bin/sh"]
