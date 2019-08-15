@@ -103,7 +103,7 @@ RUN groupadd --gid 3434 circleci \
 USER circleci
 
 # Physically create these directories so that ~/.profile will add them to PATH
-RUN mkdir -p $HOME/{,.local/}bin
+RUN mkdir -p $HOME/bin && mkdir -p $HOME/.local/bin
 
 CMD ["/bin/sh"]
 
