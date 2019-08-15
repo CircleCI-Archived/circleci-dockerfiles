@@ -100,6 +100,6 @@ RUN curl -sSL https://github.com/gotestyourself/gotestsum/releases/download/v0.3
 USER circleci
 
 # Physically create these directories so that ~/.profile will add them to PATH
-RUN mkdir -p $HOME/{,.local/}bin
+RUN mkdir -p $HOME/bin && mkdir -p $HOME/.local/bin
 
 CMD ["/bin/sh"]
