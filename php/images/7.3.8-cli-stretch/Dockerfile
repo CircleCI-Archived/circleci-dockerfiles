@@ -110,10 +110,6 @@ RUN docker-php-ext-install zip
 # END IMAGE CUSTOMIZATIONS
 
 USER circleci
-
-# Switching user can confuse Docker's idea of $HOME, so we set it explicitly
-ENV HOME /home/circleci
-RUN mkdir -p $HOME/bin && mkdir -p $HOME/.local/bin
-ENV PATH ${HOME}/.local/bin:${HOME}/bin:${PATH}
+ENV PATH /home/circleci/.local/bin:/home/circleci/bin:${PATH}
 
 CMD ["/bin/sh"]
