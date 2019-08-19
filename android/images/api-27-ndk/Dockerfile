@@ -203,7 +203,7 @@ RUN sdkmanager \
 # API_LEVEL string gets replaced by m4
 RUN sdkmanager "platforms;android-27"
 
-ARG ndk_version=android-ndk-r17b
+ARG ndk_version=android-ndk-r20
 ARG android_ndk_home=/opt/android/${ndk_version}
 
 # install NDK
