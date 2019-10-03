@@ -78,6 +78,9 @@ RUN set -ex \
 
 RUN gem install bundler
 
+# Install cypress OSS dependencies
+RUN apt-get install xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
+
 # Basic smoke test
 RUN node --version
 
