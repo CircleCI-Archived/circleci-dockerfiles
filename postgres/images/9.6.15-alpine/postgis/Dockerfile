@@ -5,13 +5,23 @@
 FROM circleci/postgres:9.6.15-alpine
 
 ENV PGUSER $POSTGRES_USER
-ENV POSTGIS_VERSION 2.5.2
+# PostGIS version for non-v12 PostgreSQL
+# v12 defaults to PostGIS v3
+ENV POSTGIS_PKG_VER 2.5
+ENV POSTGIS_VERSION 2.5.3
 
 RUN if which apt-get > /dev/null ; then \
-      apt-get update \
-      && apt-get install -y --no-install-recommends \
-           postgresql-$PG_MAJOR-postgis-2.5 postgresql-$PG_MAJOR-postgis-2.5-scripts postgis \
-      && rm -rf /var/lib/apt/lists/* \
+      if [ $PG_MAJOR = 12 ]; then \
+	    echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg-testing main" >> /etc/apt/sources.list.d/pgdg.list && \
+        apt-get update && \
+        apt-get install -y --no-install-recommends \
+            postgresql-$PG_MAJOR-postgis-3 postgresql-$PG_MAJOR-postgis-3-scripts postgis; \
+	  else \
+        apt-get update && \
+        apt-get install -y --no-install-recommends \
+            postgresql-$PG_MAJOR-postgis-$POSTGIS_PKG_VER postgresql-$PG_MAJOR-postgis-$POSTGIS_PKG_VER-scripts postgis; \
+	  fi && \
+      rm -rf /var/lib/apt/lists/* \
     ; else \
       apk add --no-cache --virtual .fetch-deps \
           ca-certificates \
@@ -42,7 +52,16 @@ RUN if which apt-get > /dev/null ; then \
           --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
           gdal-dev \
           geos-dev \
-          proj-dev \
+	  && wget "https://download.osgeo.org/proj/proj-4.9.3.tar.gz" \
+	  && wget "https://download.osgeo.org/proj/proj-datumgrid-1.6.zip" \
+	  && tar xfz proj-4.9.3.tar.gz \
+	  && rm proj-4.9.3.tar.gz \
+	  && cd proj-4.9.3 \
+	  && ./configure --prefix=/usr && mkdir data && cd .. \
+	  && unzip proj-datumgrid-1.6.zip -d proj-4.9.3/data/ \
+	  && rm proj-datumgrid-1.6.zip \
+	  && cd proj-4.9.3 \
+	  && make && make install \
       && cd /usr/src/postgis \
       && ./autogen.sh \
   # configure options taken from:
@@ -57,7 +76,6 @@ RUN if which apt-get > /dev/null ; then \
           --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
           geos \
           gdal \
-          proj \
           wget \
       && cd / \
       && rm -rf /usr/src/postgis \
