@@ -8,7 +8,7 @@ This repository's `master` branch tracks images pushed to the official CircleCI 
 Its `staging` branch tracks images pushed to [CircleCI's staging environment](https://hub.docker.com/r/ccistaging); any other branches track images pushed to [CircleCI's test environment](https://hub.docker.com/r/ccitest).
 
 ## Stay informed about CircleCI image changes/announcements
-As part of regular maintenance, changes are occassionally made to various images, from updating images' contents, to changing how image variants are tagged. With the exception of bugfixes or security patches, these changes will always be announced in advance. Changes are posted in the Announcements section of CircleCI Discuss; relevant posts will always have a `convenience-images` tag:
+As part of regular maintenance, changes are occasionally made to various images, from updating images' contents, to changing how image variants are tagged. With the exception of bug fixes or security patches, these changes will always be announced in advance. Changes are posted in the Announcements section of CircleCI Discuss; relevant posts will always have a `convenience-images` tag:
 
 - https://discuss.circleci.com/c/announcements
 - https://discuss.circleci.com/tags/convenience-images
