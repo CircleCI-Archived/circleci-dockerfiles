@@ -51,7 +51,7 @@ RUN if which apt-get > /dev/null ; then \
           --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
           --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
           gdal-dev \
-          geos-dev \
+      && apk add --no-cache geos-dev geos \
 	  && wget "https://download.osgeo.org/proj/proj-4.9.3.tar.gz" \
 	  && wget "https://download.osgeo.org/proj/proj-datumgrid-1.6.zip" \
 	  && tar xfz proj-4.9.3.tar.gz \
