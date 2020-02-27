@@ -5,6 +5,7 @@
 FROM postgres:11.7
 
 ENV POSTGRES_DB=circle_test
+ENV POSTGRES_HOST_AUTH_METHOD=test
 
 # This is performance optimization tweak to make DB faster
 RUN if [ -e /usr/local/share/postgresql/postgresql.conf.sample ]; then \
