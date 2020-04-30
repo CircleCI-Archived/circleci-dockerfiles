@@ -163,7 +163,7 @@ RUN echo 'gem: --env-shebang --no-rdoc --no-ri' >> ~/.gemrc && gem install bundl
 # Download and install Android SDK
 RUN sudo mkdir -p ${android_home} && \
     sudo chown -R circleci:circleci ${android_home} && \
-    curl --silent --show-error --location --fail --retry 3 --output /tmp/${sdk_version} https://dl.google.com/android/repository/${sdk_version} && \
+    wget -O /tmp/${sdk_version} -t 5 "https://dl.google.com/android/repository/${sdk_version}" && \
     unzip -q /tmp/${sdk_version} -d ${android_home} && \
     rm /tmp/${sdk_version}
 
@@ -193,13 +193,15 @@ RUN sdkmanager \
   "build-tools;27.0.1" \
   "build-tools;27.0.2" \
   "build-tools;27.0.3" \
-  "build-tools;28.0.0" \
+  # 28.0.0 is failing to download from Google for some reason
+  #"build-tools;28.0.0" \
   "build-tools;28.0.1" \
   "build-tools;28.0.2" \
   "build-tools;28.0.3" \
   "build-tools;29.0.0" \
   "build-tools;29.0.1" \
-  "build-tools;29.0.2"
+  "build-tools;29.0.2" \
+  "build-tools;29.0.3"
 
 # API_LEVEL string gets replaced by m4
 RUN sdkmanager "platforms;android-28"
