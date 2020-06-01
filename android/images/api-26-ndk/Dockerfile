@@ -57,10 +57,6 @@ RUN JQ_URL="https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linu
 
 # Install Docker
 
-# Docker.com returns the URL of the latest binary when you hit a directory listing
-# We curl this URL and `grep` the version out.
-# The output looks like this:
-
 #>    # To install, run the following commands as root:
 #>    curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-17.05.0-ce.tgz && tar --strip-components=1 -xvzf docker-17.05.0-ce.tgz -C /usr/local/bin
 #>
@@ -68,9 +64,7 @@ RUN JQ_URL="https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linu
 #>    /usr/local/bin/dockerd
 
 RUN set -ex \
-  && export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.docker.com/linux/static/stable/x86_64/ | grep -o -e 'docker-[.0-9]*\.tgz' | sort -r | head -n 1) \
-  # Line below is temporary fix until Docker v19.03.10 is released
-  && DOCKER_VERSION=docker-19.03.8.tgz \
+  && export DOCKER_VERSION=docker-19.03.10.tgz \
   && DOCKER_URL="https://download.docker.com/linux/static/stable/x86_64/${DOCKER_VERSION}" \
   && echo Docker URL: $DOCKER_URL \
   && curl --silent --show-error --location --fail --retry 3 --output /tmp/docker.tgz "${DOCKER_URL}" \
