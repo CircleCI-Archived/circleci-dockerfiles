@@ -186,4 +186,4 @@ RUN sdkmanager "build-tools;25.0.3" && \
 	sdkmanager "build-tools;30.0.0"
 
 # API_LEVEL string gets replaced by m4
-RUN sdkmanager "platforms;android-27"
+RUN sdkmanager "platforms;android-30"

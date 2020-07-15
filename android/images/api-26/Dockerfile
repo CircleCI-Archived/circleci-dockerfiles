@@ -178,26 +178,12 @@ RUN sdkmanager \
   "platform-tools" \
   "emulator"
 
-RUN sdkmanager \
-  "build-tools;25.0.0" \
-  "build-tools;25.0.1" \
-  "build-tools;25.0.2" \
-  "build-tools;25.0.3" \
-  "build-tools;26.0.1" \
-  "build-tools;26.0.2" \
-  "build-tools;27.0.0" \
-  "build-tools;27.0.1" \
-  "build-tools;27.0.2" \
-  "build-tools;27.0.3" \
-  # 28.0.0 is failing to download from Google for some reason
-  #"build-tools;28.0.0" \
-  "build-tools;28.0.1" \
-  "build-tools;28.0.2" \
-  "build-tools;28.0.3" \
-  "build-tools;29.0.0" \
-  "build-tools;29.0.1" \
-  "build-tools;29.0.2" \
-  "build-tools;29.0.3"
+RUN sdkmanager "build-tools;25.0.3" && \
+	sdkmanager "build-tools;26.0.2" && \
+	sdkmanager "build-tools;27.0.3" && \
+	sdkmanager "build-tools;28.0.3" && \
+	sdkmanager "build-tools;29.0.3" && \
+	sdkmanager "build-tools;30.0.0"
 
 # API_LEVEL string gets replaced by m4
 RUN sdkmanager "platforms;android-26"
