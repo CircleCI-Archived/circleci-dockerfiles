@@ -61,6 +61,10 @@ RUN CHROME_VERSION="$(google-chrome --version)" \
     && sudo chmod +x /usr/local/bin/chromedriver \
     && chromedriver --version
 
+# Google Chrome < v85 had libxss1 as a dependency. It no longer does but people
+# have been depending on it so installing manually.
+RUN sudo apt-get install -y libxss1
+
 # start xvfb automatically to avoid needing to express in circle.yml
 ENV DISPLAY :99
 RUN printf '#!/bin/sh\nXvfb :99 -screen 0 1280x1024x24 &\nexec "$@"\n' > /tmp/entrypoint \
