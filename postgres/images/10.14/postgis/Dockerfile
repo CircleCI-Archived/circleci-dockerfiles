@@ -5,13 +5,13 @@
 FROM circleci/postgres:10.14
 
 ENV PGUSER $POSTGRES_USER
-# PostGIS version for non-v12 PostgreSQL
-# v12 defaults to PostGIS v3
+# PostGIS version for versions prior to v12 PostgreSQL
+# v12 and above defaults to PostGIS v3
 ENV POSTGIS_PKG_VER 2.5
 ENV POSTGIS_VERSION 2.5.3
 
 RUN if which apt-get > /dev/null ; then \
-      if [ $PG_MAJOR = 12 ]; then \
+      if [ $PG_MAJOR -ge 12 ]; then \
 	    echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg-testing main" >> /etc/apt/sources.list.d/pgdg.list && \
         apt-get update && \
         apt-get install -y --no-install-recommends \
