@@ -210,12 +210,12 @@ RUN whoami
 
 # node installations command expect to run as root
 USER root
-## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/9a348664d89b7701f60b5285b6d77be23a1f7257/14/stretch/Dockerfile
+## Using node installation from https://raw.githubusercontent.com/nodejs/docker-node/a876b9aa22cb77bc219ec8e14b6bd5a03ad5db6d/14/stretch/Dockerfile
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
 
-ENV NODE_VERSION 14.15.2
+ENV NODE_VERSION 14.15.3
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
