@@ -7,8 +7,7 @@ FROM mysql:5.6.51
 ENV MYSQL_ALLOW_EMPTY_PASSWORD=true \
     MYSQL_DATABASE=circle_test \
     MYSQL_HOST=127.0.0.1 \
-    MYSQL_ROOT_HOST=% \
-    MYSQL_USER=root
+    MYSQL_ROOT_HOST=%
 
 # This is the performance optimization tweak to make DB faster
 RUN echo '\n\
